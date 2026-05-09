@@ -2,7 +2,6 @@
 <html lang="ko">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,45 +10,40 @@
 <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
 
 <style>
-
 body{
-    margin:0;
-    background:#f0f0f0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-    overflow:hidden;
+  margin:0;
+  background:#f0f0f0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  overflow:hidden;
 }
 
 #book{
-    width:360px;
-    height:640px;
+  width:360px;
+  height:640px;
 }
 
 .page{
-    width:100%;
-    height:100%;
+  width:100%;
+  height:100%;
 }
 
 .page img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    border-radius:10px;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:10px;
 }
 
 @media (max-width: 768px){
-
-    #book{
-        width:95vw;
-        height:85vh;
-    }
-
+  #book{
+    width:95vw;
+    height:85vh;
+  }
 }
-
 </style>
-
 </head>
 
 <body>
@@ -89,27 +83,28 @@ body{
 <div class="page"><img src="images/31.jpg"></div>
 <div class="page"><img src="images/32.jpg"></div>
 <div class="page"><img src="images/33.jpg"></div>
+
 </div>
 
 <script>
-
 const pageFlip = new St.PageFlip(
-    document.getElementById("book"),
-    {
-        width:360,
-        height:640,
-        size:"stretch",
-        minWidth:300,
-        maxWidth:420,
-        minHeight:500,
-        maxHeight:750,
-        showCover:true,
-        usePortrait:true,
-        mobileScrollSupport:true
-    }
+  document.getElementById("book"),
+  {
+    width:360,
+    height:640,
+    size:"stretch",
+    minWidth:300,
+    maxWidth:420,
+    minHeight:500,
+    maxHeight:750,
+    showCover:true,
+    usePortrait:true,
+    mobileScrollSupport:true
+  }
 );
 
 pageFlip.loadFromHTML(document.querySelectorAll(".page"));
+</script>
 
 <audio id="bgm" loop>
   <source src="BGM.mp3" type="audio/mpeg">
@@ -145,3 +140,6 @@ function toggleBgm(){
   }
 }
 </script>
+
+</body>
+</html>
