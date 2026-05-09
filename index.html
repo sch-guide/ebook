@@ -112,15 +112,44 @@ const pageFlip = new St.PageFlip(
 pageFlip.loadFromHTML(document.querySelectorAll(".page"));
 
 </script>
-
 <audio id="bgm" loop>
-<source src="bgm.mp3" type="audio/mpeg">
+  <source src="BGM.mp3" type="audio/mpeg">
 </audio>
 
-<button onclick="document.getElementById('bgm').play()"
-style="position:fixed; top:15px; right:15px; z-index:9999; padding:8px 12px; border-radius:20px; border:none; background:#0b4ea2; color:white;">
-🎵 BGM OFF
-</button>
+<button id="bgmBtn"
+onclick="
+const bgm=document.getElementById('bgm');
+const btn=document.getElementById('bgmBtn');
 
-</body>
-</html>
+<audio id="bgm" loop>
+  <source src="BGM.mp3" type="audio/mpeg">
+</audio>
+
+<button id="bgmBtn"
+onclick="
+const bgm=document.getElementById('bgm');
+const btn=document.getElementById('bgmBtn');
+
+if(bgm.paused){
+  bgm.play();
+  btn.innerHTML='🔇 BGM OFF';
+}else{
+  bgm.pause();
+  btn.innerHTML='🎵 BGM ON';
+}
+"
+
+style="
+position:fixed;
+top:15px;
+right:15px;
+z-index:9999;
+padding:8px 12px;
+border-radius:20px;
+border:none;
+background:#0b4ea2;
+color:white;
+"
+>
+🎵 BGM ON
+</button>
