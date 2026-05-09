@@ -106,157 +106,89 @@ const pageFlip = new St.PageFlip(
 pageFlip.loadFromHTML(document.querySelectorAll(".page"));
 </script>
 
-<audio id="bgm" autoplay loop>
+<audio id="bgm" loop preload="auto">
   <source src="BGM.mp3" type="audio/mpeg">
 </audio>
 
 <button id="thumbBtn" onclick="toggleThumbs()" style="
-position:fixed;
-top:18px;
-left:18px;
-z-index:999999999;
-width:48px;
-height:48px;
-border-radius:50%;
-border:none;
-background:rgba(20,30,50,0.72);
-backdrop-filter:blur(8px);
-color:white;
-font-size:22px;
-box-shadow:0 4px 12px rgba(0,0,0,0.25);
-cursor:pointer;
-">
-☰
-</button>
+position:fixed; top:18px; left:18px; z-index:999999999;
+width:44px; height:44px; border-radius:50%; border:none;
+background:rgba(15,25,45,0.72); color:white; font-size:20px;
+backdrop-filter:blur(8px); box-shadow:0 4px 12px rgba(0,0,0,0.25);
+">☷</button>
 
 <button id="bgmBtn" onclick="toggleBgm()" style="
-position:fixed;
-top:18px;
-right:18px;
-z-index:999999999;
-width:48px;
-height:48px;
-border-radius:50%;
-border:none;
-background:rgba(20,30,50,0.72);
-backdrop-filter:blur(8px);
-color:white;
-font-size:20px;
-box-shadow:0 4px 12px rgba(0,0,0,0.25);
-cursor:pointer;
+position:fixed; top:18px; right:18px; z-index:999999999;
+width:44px; height:44px; border-radius:50%; border:none;
+background:rgba(15,25,45,0.72); color:white; font-size:18px;
+backdrop-filter:blur(8px); box-shadow:0 4px 12px rgba(0,0,0,0.25);
+">♪</button>
+
+<div id="startOverlay" onclick="startEbook()" style="
+position:fixed; inset:0; z-index:1000000000;
+background:rgba(15,25,45,0.82); color:white;
+display:flex; align-items:center; justify-content:center;
+font-size:18px; font-weight:bold;
 ">
-♫
-</button>
+</div>
 
 <div id="thumbs" style="
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100vw;
-height:100vh;
-z-index:999999998;
-background:rgba(25,35,55,0.97);
-overflow:auto;
-padding:80px 18px 30px;
-box-sizing:border-box;
+display:none; position:fixed; inset:0; z-index:999999998;
+background:rgba(25,35,55,0.97); overflow:auto;
+padding:80px 18px 30px; box-sizing:border-box;
 ">
+  <div style="position:fixed; top:22px; left:0; width:100%;
+  text-align:center; color:white; font-size:22px; font-weight:bold;">썸네일</div>
 
-<div style="
-position:fixed;
-top:22px;
-left:0;
-width:100%;
-text-align:center;
-color:white;
-font-size:22px;
-font-weight:bold;
-letter-spacing:-0.5px;
-">
-</div>
+  <button onclick="toggleThumbs()" style="
+  position:fixed; top:16px; left:18px; z-index:999999999;
+  border:none; background:none; color:white; font-size:34px;">‹</button>
 
-<button onclick="toggleThumbs()" style="
-position:fixed;
-top:16px;
-left:18px;
-z-index:999999999;
-border:none;
-background:none;
-color:white;
-font-size:34px;
-cursor:pointer;
-">
-‹
-</button>
-
-<div id="thumbGrid" style="
-display:grid;
-grid-template-columns:repeat(3, 1fr);
-gap:18px;
-">
-</div>
-
+  <div id="thumbGrid" style="
+  display:grid; grid-template-columns:repeat(3,1fr); gap:18px;"></div>
 </div>
 
 <script>
 const bgm = document.getElementById('bgm');
 const bgmBtn = document.getElementById('bgmBtn');
 
-window.addEventListener('load', () => {
+function startEbook(){
   bgm.volume = 0.5;
-
-  const playPromise = bgm.play();
-
-  if(playPromise !== undefined){
-    playPromise.catch(() => {
-      console.log('자동재생 제한');
-    });
-  }
-});
+  bgm.play();
+  document.getElementById('startOverlay').style.display = 'none';
+  bgmBtn.textContent = '♪';
+}
 
 function toggleBgm(){
-
   if(bgm.paused){
     bgm.play();
-    bgmBtn.innerHTML = '♫';
+    bgmBtn.textContent = '♪';
     bgmBtn.style.opacity = '1';
   }else{
     bgm.pause();
-    bgmBtn.innerHTML = '✕';
-    bgmBtn.style.opacity = '0.65';
+    bgmBtn.textContent = '⌁';
+    bgmBtn.style.opacity = '0.6';
   }
 }
 
 function toggleThumbs(){
   const thumbs = document.getElementById('thumbs');
-
-  thumbs.style.display =
-    thumbs.style.display === 'none'
-    ? 'block'
-    : 'none';
+  thumbs.style.display = thumbs.style.display === 'none' ? 'block' : 'none';
 }
 
 const thumbGrid = document.getElementById('thumbGrid');
 
-for(let i = 1; i <= 33; i++){
-
+for(let i=1; i<=33; i++){
   const item = document.createElement('div');
-
   item.style.textAlign = 'center';
   item.style.color = 'white';
   item.style.fontSize = '15px';
 
   item.innerHTML = `
-    <img src="images/${i}.jpg"
-    style="
-    width:100%;
-    border-radius:8px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.25);
-    ">
-
-    <div style="margin-top:7px;">
-      ${i}
-    </div>
+    <img src="images/${i}.jpg" style="
+    width:100%; border-radius:8px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.25);">
+    <div style="margin-top:7px;">${i}</div>
   `;
 
   item.onclick = function(){
