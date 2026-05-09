@@ -110,64 +110,123 @@ pageFlip.loadFromHTML(document.querySelectorAll(".page"));
   <source src="BGM.mp3" type="audio/mpeg">
 </audio>
 
-<button id="thumbBtn" onclick="toggleThumbs()" style="
-position:fixed; top:18px; left:18px; z-index:999999999;
-width:44px; height:44px; border-radius:50%; border:none;
-background:rgba(15,25,45,0.72); color:white; font-size:20px;
-backdrop-filter:blur(8px); box-shadow:0 4px 12px rgba(0,0,0,0.25);
-">☷</button>
+<button id="thumbBtn" onclick="toggleThumbs()" class="iconBtn" style="left:18px;">
+  ⊞
+</button>
 
-<button id="bgmBtn" onclick="toggleBgm()" style="
-position:fixed; top:18px; right:18px; z-index:999999999;
-width:44px; height:44px; border-radius:50%; border:none;
-background:rgba(15,25,45,0.72); color:white; font-size:18px;
-backdrop-filter:blur(8px); box-shadow:0 4px 12px rgba(0,0,0,0.25);
-">♪</button>
+<button id="bgmBtn" onclick="toggleBgm()" class="iconBtn" style="right:18px;">
+  ♫
+</button>
 
-<div id="startOverlay" onclick="startEbook()" style="
-position:fixed; inset:0; z-index:1000000000;
-background:rgba(15,25,45,0.82); color:white;
-display:flex; align-items:center; justify-content:center;
-font-size:18px; font-weight:bold;
-">
+<div id="startOverlay" onclick="startEbook()">
+  <div class="startBox">▶ 전자책 시작</div>
 </div>
 
-<div id="thumbs" style="
-display:none; position:fixed; inset:0; z-index:999999998;
-background:rgba(25,35,55,0.97); overflow:auto;
-padding:80px 18px 30px; box-sizing:border-box;
-">
-  <div style="position:fixed; top:22px; left:0; width:100%;
-  text-align:center; color:white; font-size:22px; font-weight:bold;">썸네일</div>
-
-  <button onclick="toggleThumbs()" style="
-  position:fixed; top:16px; left:18px; z-index:999999999;
-  border:none; background:none; color:white; font-size:34px;">‹</button>
-
-  <div id="thumbGrid" style="
-  display:grid; grid-template-columns:repeat(3,1fr); gap:18px;"></div>
+<div id="thumbs">
+  <div id="thumbTitle">썸네일</div>
+  <button onclick="toggleThumbs()" id="closeThumb">‹</button>
+  <div id="thumbGrid"></div>
 </div>
+
+<style>
+.iconBtn{
+  position:fixed;
+  top:18px;
+  z-index:999999999;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,0.9);
+  background:rgba(20,60,120,0.28);
+  color:white;
+  font-size:23px;
+  font-weight:500;
+  backdrop-filter:blur(8px);
+  box-shadow:0 4px 12px rgba(0,0,0,0.22);
+}
+
+#startOverlay{
+  position:fixed;
+  inset:0;
+  z-index:1000000000;
+  background:rgba(20,45,80,0.38);
+  backdrop-filter:blur(3px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.startBox{
+  padding:14px 24px;
+  border-radius:28px;
+  border:2px solid white;
+  background:rgba(20,60,120,0.45);
+  color:white;
+  font-size:18px;
+  font-weight:bold;
+  box-shadow:0 4px 14px rgba(0,0,0,0.25);
+}
+
+#thumbs{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:999999998;
+  background:rgba(45,58,85,0.96);
+  overflow:auto;
+  padding:80px 18px 30px;
+  box-sizing:border-box;
+}
+
+#thumbTitle{
+  position:fixed;
+  top:22px;
+  left:0;
+  width:100%;
+  text-align:center;
+  color:white;
+  font-size:22px;
+  font-weight:bold;
+}
+
+#closeThumb{
+  position:fixed;
+  top:12px;
+  left:18px;
+  z-index:999999999;
+  border:none;
+  background:none;
+  color:white;
+  font-size:42px;
+}
+
+#thumbGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+</style>
 
 <script>
 const bgm = document.getElementById('bgm');
 const bgmBtn = document.getElementById('bgmBtn');
 
 function startEbook(){
-  bgm.volume = 0.5;
+  bgm.volume = 0.45;
   bgm.play();
   document.getElementById('startOverlay').style.display = 'none';
-  bgmBtn.textContent = '♪';
+  bgmBtn.textContent = '♫';
 }
 
 function toggleBgm(){
   if(bgm.paused){
     bgm.play();
-    bgmBtn.textContent = '♪';
+    bgmBtn.textContent = '♫';
     bgmBtn.style.opacity = '1';
   }else{
     bgm.pause();
-    bgmBtn.textContent = '⌁';
-    bgmBtn.style.opacity = '0.6';
+    bgmBtn.textContent = '♩';
+    bgmBtn.style.opacity = '0.55';
   }
 }
 
@@ -186,8 +245,10 @@ for(let i=1; i<=33; i++){
 
   item.innerHTML = `
     <img src="images/${i}.jpg" style="
-    width:100%; border-radius:8px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.25);">
+      width:100%;
+      border-radius:8px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.25);
+    ">
     <div style="margin-top:7px;">${i}</div>
   `;
 
