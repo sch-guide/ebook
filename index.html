@@ -106,7 +106,7 @@ const pageFlip = new St.PageFlip(
 pageFlip.loadFromHTML(document.querySelectorAll(".page"));
 </script>
 
-<audio id="bgm" loop>
+<audio id="bgm" autoplay loop>
   <source src="BGM.mp3" type="audio/mpeg">
 </audio>
 
@@ -115,31 +115,42 @@ position:fixed;
 top:15px;
 right:15px;
 z-index:999999999;
-padding:10px 14px;
-border-radius:20px;
+width:48px;
+height:48px;
+border-radius:50%;
 border:none;
-background:#0b4ea2;
+background:rgba(11,78,162,0.75);
+backdrop-filter:blur(6px);
 color:white;
-font-size:14px;
-font-weight:bold;
+font-size:20px;
+cursor:pointer;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
 ">
-BGM ON
+🎵
 </button>
 
 <script>
+const bgm = document.getElementById('bgm');
+const btn = document.getElementById('bgmBtn');
+
+window.addEventListener('load', () => {
+  bgm.play().catch(() => {
+    console.log('자동재생 차단됨');
+  });
+});
+
 function toggleBgm(){
-  const bgm = document.getElementById('bgm');
-  const btn = document.getElementById('bgmBtn');
 
   if(bgm.paused){
     bgm.play();
-    btn.textContent = 'BGM OFF';
+    btn.innerHTML = '🎵';
+    btn.style.opacity = '1';
   }else{
     bgm.pause();
-    btn.textContent = 'BGM ON';
+    btn.innerHTML = '🔇';
+    btn.style.opacity = '0.6';
   }
 }
 </script>
-
 </body>
 </html>
