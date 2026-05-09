@@ -111,45 +111,37 @@ const pageFlip = new St.PageFlip(
 
 pageFlip.loadFromHTML(document.querySelectorAll(".page"));
 
-</script>
 <audio id="bgm" loop>
   <source src="BGM.mp3" type="audio/mpeg">
 </audio>
 
-<button id="bgmBtn"
-onclick="
-const bgm=document.getElementById('bgm');
-const btn=document.getElementById('bgmBtn');
-
-<audio id="bgm" loop>
-  <source src="BGM.mp3" type="audio/mpeg">
-</audio>
-
-<button id="bgmBtn"
-onclick="
-const bgm=document.getElementById('bgm');
-const btn=document.getElementById('bgmBtn');
-
-if(bgm.paused){
-  bgm.play();
-  btn.innerHTML='🔇 BGM OFF';
-}else{
-  bgm.pause();
-  btn.innerHTML='🎵 BGM ON';
-}
-"
-
-style="
+<button id="bgmBtn" onclick="toggleBgm()" style="
 position:fixed;
 top:15px;
 right:15px;
-z-index:9999;
-padding:8px 12px;
+z-index:999999999;
+padding:10px 14px;
 border-radius:20px;
 border:none;
 background:#0b4ea2;
 color:white;
-"
->
-🎵 BGM ON
+font-size:14px;
+font-weight:bold;
+">
+BGM ON
 </button>
+
+<script>
+function toggleBgm(){
+  const bgm = document.getElementById('bgm');
+  const btn = document.getElementById('bgmBtn');
+
+  if(bgm.paused){
+    bgm.play();
+    btn.textContent = 'BGM OFF';
+  }else{
+    bgm.pause();
+    btn.textContent = 'BGM ON';
+  }
+}
+</script>
