@@ -106,40 +106,46 @@ const pageFlip = new St.PageFlip(
 pageFlip.loadFromHTML(document.querySelectorAll(".page"));
 </script>
 
-<audio id="bgm" loop>
+<audio id="bgm" autoplay loop>
   <source src="BGM.mp3" type="audio/mpeg">
 </audio>
 
 <button id="thumbBtn" onclick="toggleThumbs()" style="
 position:fixed;
-bottom:18px;
+top:18px;
 left:18px;
 z-index:999999999;
-width:46px;
-height:46px;
+width:48px;
+height:48px;
 border-radius:50%;
 border:none;
-background:rgba(11,78,162,0.75);
+background:rgba(20,30,50,0.72);
+backdrop-filter:blur(8px);
 color:white;
-font-size:24px;
+font-size:22px;
+box-shadow:0 4px 12px rgba(0,0,0,0.25);
+cursor:pointer;
 ">
-▦
+☰
 </button>
 
 <button id="bgmBtn" onclick="toggleBgm()" style="
 position:fixed;
-bottom:18px;
+top:18px;
 right:18px;
 z-index:999999999;
-width:46px;
-height:46px;
+width:48px;
+height:48px;
 border-radius:50%;
 border:none;
-background:rgba(11,78,162,0.75);
+background:rgba(20,30,50,0.72);
+backdrop-filter:blur(8px);
 color:white;
-font-size:22px;
+font-size:20px;
+box-shadow:0 4px 12px rgba(0,0,0,0.25);
+cursor:pointer;
 ">
-🔊
+♫
 </button>
 
 <div id="thumbs" style="
@@ -150,33 +156,35 @@ left:0;
 width:100vw;
 height:100vh;
 z-index:999999998;
-background:rgba(30,40,60,0.95);
+background:rgba(25,35,55,0.97);
 overflow:auto;
-padding:70px 20px 30px;
+padding:80px 18px 30px;
 box-sizing:border-box;
 ">
+
 <div style="
 position:fixed;
-top:18px;
+top:22px;
 left:0;
 width:100%;
 text-align:center;
 color:white;
 font-size:22px;
 font-weight:bold;
+letter-spacing:-0.5px;
 ">
-썸네일
 </div>
 
 <button onclick="toggleThumbs()" style="
 position:fixed;
-top:18px;
+top:16px;
 left:18px;
 z-index:999999999;
 border:none;
 background:none;
 color:white;
-font-size:36px;
+font-size:34px;
+cursor:pointer;
 ">
 ‹
 </button>
@@ -187,40 +195,68 @@ grid-template-columns:repeat(3, 1fr);
 gap:18px;
 ">
 </div>
+
 </div>
 
 <script>
 const bgm = document.getElementById('bgm');
 const bgmBtn = document.getElementById('bgmBtn');
 
+window.addEventListener('load', () => {
+  bgm.volume = 0.5;
+
+  const playPromise = bgm.play();
+
+  if(playPromise !== undefined){
+    playPromise.catch(() => {
+      console.log('자동재생 제한');
+    });
+  }
+});
+
 function toggleBgm(){
+
   if(bgm.paused){
     bgm.play();
-    bgmBtn.textContent = '🔊';
+    bgmBtn.innerHTML = '♫';
     bgmBtn.style.opacity = '1';
   }else{
     bgm.pause();
-    bgmBtn.textContent = '🔇';
-    bgmBtn.style.opacity = '0.6';
+    bgmBtn.innerHTML = '✕';
+    bgmBtn.style.opacity = '0.65';
   }
 }
 
 function toggleThumbs(){
   const thumbs = document.getElementById('thumbs');
-  thumbs.style.display = thumbs.style.display === 'none' ? 'block' : 'none';
+
+  thumbs.style.display =
+    thumbs.style.display === 'none'
+    ? 'block'
+    : 'none';
 }
 
 const thumbGrid = document.getElementById('thumbGrid');
 
-for(let i=1; i<=33; i++){
+for(let i = 1; i <= 33; i++){
+
   const item = document.createElement('div');
+
   item.style.textAlign = 'center';
   item.style.color = 'white';
-  item.style.fontSize = '16px';
+  item.style.fontSize = '15px';
 
   item.innerHTML = `
-    <img src="images/${i}.jpg" style="width:100%; border-radius:4px;">
-    <div style="margin-top:6px;">${i}</div>
+    <img src="images/${i}.jpg"
+    style="
+    width:100%;
+    border-radius:8px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.25);
+    ">
+
+    <div style="margin-top:7px;">
+      ${i}
+    </div>
   `;
 
   item.onclick = function(){
