@@ -10,6 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
 
 <style>
+
 body{
   margin:0;
   background:#f0f0f0;
@@ -38,10 +39,12 @@ body{
 }
 
 @media (max-width:768px){
+
   #book{
     width:95vw;
     height:85vh;
   }
+
 }
 
 .iconBtn{
@@ -119,6 +122,7 @@ body{
   grid-template-columns:repeat(3,1fr);
   gap:18px;
 }
+
 </style>
 </head>
 
@@ -130,45 +134,66 @@ body{
   <source src="BGM.mp3" type="audio/mpeg">
 </audio>
 
-<button id="thumbBtn" onclick="toggleThumbs()" class="iconBtn" style="left:18px;">
+<button id="thumbBtn"
+onclick="toggleThumbs()"
+class="iconBtn"
+style="left:18px;">
 ⊞
 </button>
 
-<button id="bgmBtn" onclick="toggleBgm()" class="iconBtn" style="right:18px;">
+<button id="bgmBtn"
+onclick="toggleBgm()"
+class="iconBtn"
+style="right:18px;">
 ♫
 </button>
 
-<div id="startOverlay" onclick="startEbook()">
-  <div class="startBox">▶ 전자책 시작</div>
+<div id="startOverlay"
+onclick="startEbook()">
+
+  <div class="startBox">
+  ▶ 전자책 시작
+  </div>
+
 </div>
 
 <div id="thumbs">
-  <div id="thumbTitle">썸네일</div>
 
-  <button onclick="toggleThumbs()" id="closeThumb">
+  <div id="thumbTitle">
+  썸네일
+  </div>
+
+  <button onclick="toggleThumbs()"
+  id="closeThumb">
   ‹
   </button>
 
   <div id="thumbGrid"></div>
+
 </div>
 
 <script>
+
 const book = document.getElementById("book");
 
 for(let i=1; i<=38; i++){
 
   const page = document.createElement("div");
+
   page.className = "page";
 
   page.innerHTML = `
-    <img src="${i}.jpg">
+    <img src="images/${i}.jpg">
   `;
 
   book.appendChild(page);
+
 }
 
 const pageFlip = new St.PageFlip(
+
   document.getElementById("book"),
+
   {
     width:360,
     height:640,
@@ -181,58 +206,87 @@ const pageFlip = new St.PageFlip(
     usePortrait:true,
     mobileScrollSupport:true
   }
+
 );
 
-pageFlip.loadFromHTML(document.querySelectorAll(".page"));
+pageFlip.loadFromHTML(
+  document.querySelectorAll(".page")
+);
 
 const bgm = document.getElementById('bgm');
-const bgmBtn = document.getElementById('bgmBtn');
+
+const bgmBtn =
+document.getElementById('bgmBtn');
 
 function startEbook(){
+
   bgm.volume = 0.45;
+
   bgm.play();
-  document.getElementById('startOverlay').style.display = 'none';
+
+  document.getElementById(
+    'startOverlay'
+  ).style.display = 'none';
+
 }
 
 function toggleBgm(){
 
   if(bgm.paused){
+
     bgm.play();
+
     bgmBtn.style.opacity = '1';
+
   }else{
+
     bgm.pause();
+
     bgmBtn.style.opacity = '0.55';
+
   }
+
 }
 
 function toggleThumbs(){
 
-  const thumbs = document.getElementById('thumbs');
+  const thumbs =
+  document.getElementById('thumbs');
 
   thumbs.style.display =
-    thumbs.style.display === 'none'
-    ? 'block'
-    : 'none';
+  thumbs.style.display === 'none'
+  ? 'block'
+  : 'none';
+
 }
 
-const thumbGrid = document.getElementById('thumbGrid');
+const thumbGrid =
+document.getElementById('thumbGrid');
 
 for(let i=1; i<=38; i++){
 
-  const item = document.createElement('div');
+  const item =
+  document.createElement('div');
 
   item.style.textAlign = 'center';
+
   item.style.color = 'white';
 
   item.innerHTML = `
-    <img src="${i}.jpg"
+
+    <img
+    src="images/${i}.jpg"
+
     style="
       width:100%;
       border-radius:8px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.25);
     ">
+
     <div style="margin-top:7px;">
       ${i}
     </div>
+
   `;
 
   item.onclick = function(){
@@ -240,10 +294,13 @@ for(let i=1; i<=38; i++){
     pageFlip.flip(i - 1);
 
     toggleThumbs();
+
   };
 
   thumbGrid.appendChild(item);
+
 }
+
 </script>
 
 </body>
