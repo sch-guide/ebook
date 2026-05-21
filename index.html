@@ -2,8 +2,11 @@
 <html lang="ko">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>ebook</title>
 
@@ -48,79 +51,127 @@ body{
 }
 
 .iconBtn{
+
   position:fixed;
   top:18px;
   z-index:999999999;
+
   width:44px;
   height:44px;
+
   border-radius:50%;
   border:2px solid rgba(255,255,255,0.9);
+
   background:rgba(20,60,120,0.28);
+
   color:white;
+
   font-size:23px;
   font-weight:500;
+
   backdrop-filter:blur(8px);
+
   box-shadow:0 4px 12px rgba(0,0,0,0.22);
+
 }
 
 #startOverlay{
+
   position:fixed;
   inset:0;
+
   z-index:1000000000;
+
   background:rgba(20,45,80,0.38);
+
   backdrop-filter:blur(3px);
+
   display:flex;
   align-items:center;
   justify-content:center;
+
 }
 
 .startBox{
+
   padding:14px 24px;
+
   border-radius:28px;
+
   border:2px solid white;
+
   background:rgba(20,60,120,0.45);
+
   color:white;
+
   font-size:18px;
   font-weight:bold;
+
 }
 
 #thumbs{
+
   display:none;
+
   position:fixed;
   inset:0;
+
   z-index:999999998;
+
   background:rgba(45,58,85,0.96);
+
   overflow:auto;
+
   padding:80px 18px 30px;
+
   box-sizing:border-box;
+
 }
 
 #thumbTitle{
+
   position:fixed;
+
   top:22px;
   left:0;
+
   width:100%;
+
   text-align:center;
+
   color:white;
+
   font-size:22px;
   font-weight:bold;
+
 }
 
 #closeThumb{
+
   position:fixed;
+
   top:12px;
   left:18px;
+
   z-index:999999999;
+
   border:none;
   background:none;
+
   color:white;
+
   font-size:42px;
+
 }
 
 #thumbGrid{
+
   display:grid;
+
   grid-template-columns:repeat(3,1fr);
+
   gap:18px;
+
 }
 
 </style>
@@ -131,80 +182,105 @@ body{
 <div id="book"></div>
 
 <audio id="bgm" loop preload="auto">
-  <source src="BGM.mp3" type="audio/mpeg">
+  <source src="배경음악.mp3" type="audio/mpeg">
 </audio>
 
-<button id="thumbBtn"
+<button
+id="thumbBtn"
 onclick="toggleThumbs()"
 class="iconBtn"
 style="left:18px;">
+
 ⊞
+
 </button>
 
-<button id="bgmBtn"
+<button
+id="bgmBtn"
 onclick="toggleBgm()"
 class="iconBtn"
 style="right:18px;">
+
 ♫
+
 </button>
 
-<div id="startOverlay"
+<div
+id="startOverlay"
 onclick="startEbook()">
 
-  <div class="startBox">
-  ▶ 전자책 시작
-  </div>
+<div class="startBox">
+
+▶ 전자책 시작
+
+</div>
 
 </div>
 
 <div id="thumbs">
 
-  <div id="thumbTitle">
-  썸네일
-  </div>
+<div id="thumbTitle">
 
-  <button onclick="toggleThumbs()"
-  id="closeThumb">
-  ‹
-  </button>
+썸네일
 
-  <div id="thumbGrid"></div>
+</div>
+
+<button
+onclick="toggleThumbs()"
+id="closeThumb">
+
+‹
+
+</button>
+
+<div id="thumbGrid"></div>
 
 </div>
 
 <script>
 
-const book = document.getElementById("book");
+const book =
+document.getElementById("book");
 
 for(let i=1; i<=38; i++){
 
-  const page = document.createElement("div");
+  const page =
+  document.createElement("div");
 
   page.className = "page";
 
   page.innerHTML = `
-    <img src="images/${i}.jpg">
+    <img src="${i}.jpg">
   `;
 
   book.appendChild(page);
 
 }
 
-const pageFlip = new St.PageFlip(
+const pageFlip =
+new St.PageFlip(
 
   document.getElementById("book"),
 
   {
+
     width:360,
     height:640,
+
     size:"stretch",
+
     minWidth:300,
     maxWidth:420,
+
     minHeight:500,
     maxHeight:750,
+
     showCover:false,
+
     usePortrait:true,
+
     mobileScrollSupport:true
+
   }
 
 );
@@ -213,7 +289,8 @@ pageFlip.loadFromHTML(
   document.querySelectorAll(".page")
 );
 
-const bgm = document.getElementById('bgm');
+const bgm =
+document.getElementById('bgm');
 
 const bgmBtn =
 document.getElementById('bgmBtn');
@@ -254,8 +331,11 @@ function toggleThumbs(){
   document.getElementById('thumbs');
 
   thumbs.style.display =
+
   thumbs.style.display === 'none'
+
   ? 'block'
+
   : 'none';
 
 }
@@ -275,7 +355,7 @@ for(let i=1; i<=38; i++){
   item.innerHTML = `
 
     <img
-    src="images/${i}.jpg"
+    src="${i}.jpg"
 
     style="
       width:100%;
