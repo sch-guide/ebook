@@ -7,6 +7,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
 <title>ebook</title>
 
 <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
@@ -282,7 +286,7 @@ for(let i=1; i<=38; i++){
         height:100%;
       ">
 
-        <img src="${i}.jpg">
+        <img src="${i}.jpg?v=5">
 
         <div
           onclick="event.stopPropagation(); window.open('https://www.schmc.ac.kr/cheonan', '_blank');"
@@ -317,7 +321,7 @@ for(let i=1; i<=38; i++){
   }else{
 
     page.innerHTML = `
-      <img src="${i}.jpg">
+      <img src="${i}.jpg?v=5">
     `;
 
   }
@@ -440,7 +444,7 @@ for(let i=1; i<=38; i++){
   item.innerHTML = `
 
     <img
-    src="${i}.jpg"
+    src="${i}.jpg?v=5"
 
     style="
       width:100%;
