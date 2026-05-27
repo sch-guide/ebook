@@ -106,6 +106,8 @@ body{
   font-size:18px;
   font-weight:bold;
 
+  cursor:pointer;
+
 }
 
 #thumbs{
@@ -204,15 +206,15 @@ style="right:18px; opacity:0.55;">
 
 </button>
 
-<div
-id="startOverlay"
-onclick="startEbook()">
+<div id="startOverlay">
 
-<div class="startBox">
+  <button
+  class="startBox"
+  onclick="startEbook()">
 
-▶ 전자책 시작
+    ▶ 전자책 시작
 
-</div>
+  </button>
 
 </div>
 
@@ -297,8 +299,6 @@ document.getElementById('bgmBtn');
 function startEbook(){
 
   bgm.volume = 0.45;
-
-  bgm.currentTime = 0;
 
   bgm.play();
 
