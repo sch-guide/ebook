@@ -250,47 +250,48 @@ for(let i=1; i<=38; i++){
 
   if(i === 24 || i === 26){
 
-    page.innerHTML = `
+  page.innerHTML = `
 
-      <div style="
-        position:relative;
-        width:100%;
-        height:100%;
-      ">
+    <div style="
+      position:relative;
+      width:100%;
+      height:100%;
+    ">
 
-        <img src="${i}.jpg">
+      <img src="${i}.jpg">
 
-        <div
-          onclick="event.stopPropagation(); window.open('https://www.schmc.ac.kr/cheonan', '_blank');"
+      <div
+        onclick="event.stopPropagation(); window.open('https://www.schmc.ac.kr/cheonan', '_blank');"
 
-          style="
-            position:absolute;
+        style="
+          position:absolute;
 
-            left:6%;
-            top:${i === 24 ? '84.2%' : '81%'};
+          left:6%;
 
-            width:88%;
-            height:5%;
+          top:${i === 24 ? '82.8%' : '78.5%'};
 
-            z-index:99999999;
+          width:88%;
+          height:7%;
 
-            cursor:pointer;
-            background:transparent;
-          ">
+          z-index:99999999;
+
+          cursor:pointer;
+        ">
 
           <div style="
             position:absolute;
-            right:2%;
+
+            right:3%;
             top:50%;
 
             transform:translateY(-50%);
 
-            width:26px;
-            height:26px;
+            width:34px;
+            height:34px;
 
             border-radius:50%;
 
-            background:rgba(31,79,145,0.92);
+            background:#1f4f91;
 
             color:white;
 
@@ -298,29 +299,29 @@ for(let i=1; i<=38; i++){
             align-items:center;
             justify-content:center;
 
-            font-size:14px;
+            font-size:18px;
             font-weight:bold;
 
-            box-shadow:0 2px 8px rgba(0,0,0,0.25);
+            box-shadow:0 3px 10px rgba(0,0,0,0.3);
           ">
 
             ↗
 
           </div>
 
-        </div>
-
       </div>
 
-    `;
+    </div>
 
-  }else{
+  `;
 
-    page.innerHTML = `
-      <img src="${i}.jpg">
-    `;
+}else{
 
-  }
+  page.innerHTML = `
+    <img src="${i}.jpg">
+  `;
+
+}
 
   book.appendChild(page);
 
