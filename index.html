@@ -255,79 +255,110 @@ for(let i=1; i<=38; i++){
 
   if(i === 24 || i === 26){
 
-  page.innerHTML = `
+    page.innerHTML = `
 
-    <div style="
-      position:relative;
-      width:100%;
-      height:100%;
-    ">
+      <div style="
+        position:relative;
+        width:100%;
+        height:100%;
+      ">
 
-      <img src="${i}.jpg?v=10">
+        <img src="${i}.jpg?v=10">
 
-      <a
-        href="https://www.schmc.ac.kr/cheonan"
-        target="_blank"
+        <a
+          href="https://www.schmc.ac.kr/cheonan"
+          target="_blank"
 
-        onclick="event.stopPropagation();"
+          onclick="event.stopPropagation();"
 
-        style="
-          position:absolute;
-
-          left:6%;
-
-          top:${i === 24 ? '82.8%' : '72.5%'};
-
-          width:88%;
-          height:7%;
-
-          z-index:99999999;
-
-          display:block;
-
-          text-decoration:none;
-        ">
-
-          <div style="
+          style="
             position:absolute;
 
-            right:4%;
-            bottom:8%;
+            left:6%;
 
-            width:20px;
-            height:20px;
+            top:${i === 24 ? '82.8%' : '72.5%'};
 
-            border-radius:50%;
+            width:88%;
+            height:7%;
 
-            background:#1f4f91;
+            z-index:99999999;
 
-            color:white;
+            display:block;
 
-            display:flex;
-            align-items:center;
-            justify-content:center;
-
-            font-size:11px;
-            font-weight:bold;
+            text-decoration:none;
           ">
 
-          사이트 이동
+            <span style="
+              position:absolute;
 
-          </div>
+              right:2%;
+              top:50%;
 
-      </a>
+              transform:translateY(-50%);
 
-    </div>
+              padding:5px 10px;
 
-  `;
+              border-radius:14px;
 
-}else{
+              background:rgba(31,79,145,0.92);
 
-  page.innerHTML = `
-    <img src="${i}.jpg?v=10">
-  `;
+              color:white;
+
+              font-size:11px;
+              font-weight:bold;
+
+              box-shadow:0 2px 8px rgba(0,0,0,0.25);
+            ">
+
+            사이트 이동
+
+            </span>
+
+        </a>
+
+      </div>
+
+    `;
+
+  }else{
+
+    page.innerHTML = `
+      <img src="${i}.jpg?v=10">
+    `;
+
+  }
+
+  book.appendChild(page);
 
 }
+
+const pageFlip =
+new St.PageFlip(
+
+  document.getElementById("book"),
+
+  {
+
+    width:360,
+    height:640,
+
+    size:"stretch",
+
+    minWidth:300,
+    maxWidth:420,
+
+    minHeight:500,
+    maxHeight:750,
+
+    showCover:false,
+
+    usePortrait:true,
+
+    mobileScrollSupport:true
+
+  }
+
+);
 
 pageFlip.loadFromHTML(
   document.querySelectorAll(".page")
