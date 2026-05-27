@@ -180,7 +180,7 @@ body{
 
 <div id="book"></div>
 
-<audio id="bgm" loop autoplay preload="auto">
+<audio id="bgm" loop preload="auto">
   <source src="./BGM.mp3" type="audio/mpeg">
 </audio>
 
@@ -198,7 +198,7 @@ style="left:18px;">
 id="bgmBtn"
 onclick="toggleBgm()"
 class="iconBtn"
-style="right:18px;">
+style="right:18px; opacity:0.55;">
 
 ♫
 
@@ -294,35 +294,21 @@ document.getElementById('bgm');
 const bgmBtn =
 document.getElementById('bgmBtn');
 
-window.addEventListener('load', function(){
-
-  bgm.volume = 0.45;
-
-  const playPromise = bgm.play();
-
-  if(playPromise !== undefined){
-
-    playPromise
-    .then(function(){
-
-      bgmBtn.style.opacity = '1';
-
-    })
-    .catch(function(error){
-
-      console.log("자동재생 차단:", error);
-
-    });
-
-  }
-
-});
-
 function startEbook(){
 
   bgm.volume = 0.45;
 
-  bgm.play();
+  bgm.play()
+  .then(function(){
+
+    bgmBtn.style.opacity = '1';
+
+  })
+  .catch(function(error){
+
+    console.log(error);
+
+  });
 
   document.getElementById(
     'startOverlay'
@@ -358,7 +344,6 @@ function toggleThumbs(){
   thumbs.style.display === 'none'
 
   ? 'block'
-
   : 'none';
 
 }
