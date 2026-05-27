@@ -248,42 +248,7 @@ for(let i=1; i<=38; i++){
 
   page.className = "page";
 
-  if(i === 24){
-
-    page.innerHTML = `
-
-      <div style="
-        position:relative;
-        width:100%;
-        height:100%;
-      ">
-
-        <img src="${i}.jpg">
-
-        <div
-          onclick="event.stopPropagation(); window.open('https://www.schmc.ac.kr/cheonan', '_blank');"
-
-          style="
-            position:absolute;
-
-            left:8%;
-            top:84.2%;
-
-            width:82%;
-            height:4.2%;
-
-            z-index:99999999;
-
-            cursor:pointer;
-            background:transparent;
-          ">
-        </div>
-
-      </div>
-
-    `;
-
-  }else if(i === 26){
+  if(i === 24 || i === 26){
 
     page.innerHTML = `
 
@@ -302,7 +267,7 @@ for(let i=1; i<=38; i++){
             position:absolute;
 
             left:6%;
-            top:86%;
+            top:${i === 24 ? '84.2%' : '81%'};
 
             width:88%;
             height:5%;
@@ -312,6 +277,37 @@ for(let i=1; i<=38; i++){
             cursor:pointer;
             background:transparent;
           ">
+
+          <div style="
+            position:absolute;
+            right:2%;
+            top:50%;
+
+            transform:translateY(-50%);
+
+            width:26px;
+            height:26px;
+
+            border-radius:50%;
+
+            background:rgba(31,79,145,0.92);
+
+            color:white;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            font-size:14px;
+            font-weight:bold;
+
+            box-shadow:0 2px 8px rgba(0,0,0,0.25);
+          ">
+
+            ↗
+
+          </div>
+
         </div>
 
       </div>
