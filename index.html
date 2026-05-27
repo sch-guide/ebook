@@ -182,10 +182,6 @@ body{
 
 <div id="book"></div>
 
-<audio id="bgm" loop preload="none">
-  <source src="./BGM.mp3" type="audio/mpeg">
-</audio>
-
 <button
 id="thumbBtn"
 onclick="toggleThumbs()"
@@ -240,6 +236,8 @@ id="closeThumb">
 
 <script>
 
+let bgm = null;
+
 const book =
 document.getElementById("book");
 
@@ -290,15 +288,20 @@ pageFlip.loadFromHTML(
   document.querySelectorAll(".page")
 );
 
-const bgm =
-document.getElementById('bgm');
-
 const bgmBtn =
 document.getElementById('bgmBtn');
 
 function startEbook(){
 
-  bgm.volume = 0.45;
+  if(!bgm){
+
+    bgm = new Audio('./BGM.mp3');
+
+    bgm.loop = true;
+
+    bgm.volume = 0.45;
+
+  }
 
   bgm.play();
 
@@ -311,6 +314,16 @@ function startEbook(){
 }
 
 function toggleBgm(){
+
+  if(!bgm){
+
+    bgm = new Audio('./BGM.mp3');
+
+    bgm.loop = true;
+
+    bgm.volume = 0.45;
+
+  }
 
   if(bgm.paused){
 
