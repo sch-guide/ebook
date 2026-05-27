@@ -255,106 +255,79 @@ for(let i=1; i<=38; i++){
 
   if(i === 24 || i === 26){
 
-    page.innerHTML = `
+  page.innerHTML = `
 
-      <div style="
-        position:relative;
-        width:100%;
-        height:100%;
-      ">
+    <div style="
+      position:relative;
+      width:100%;
+      height:100%;
+    ">
 
-        <img src="${i}.jpg?v=10">
+      <img src="${i}.jpg?v=10">
 
-        <div
-          onclick="event.stopPropagation(); window.open('https://www.schmc.ac.kr/cheonan', '_blank', 'noopener,noreferrer');"
+      <a
+        href="https://www.schmc.ac.kr/cheonan"
+        target="_blank"
 
-          style="
+        onclick="event.stopPropagation();"
+
+        style="
+          position:absolute;
+
+          left:6%;
+
+          top:${i === 24 ? '82.8%' : '72.5%'};
+
+          width:88%;
+          height:7%;
+
+          z-index:99999999;
+
+          display:block;
+
+          text-decoration:none;
+        ">
+
+          <div style="
             position:absolute;
 
-            left:6%;
+            right:4%;
+            bottom:8%;
 
-            top:${i === 24 ? '82.8%' : '72.5%'};
+            width:20px;
+            height:20px;
 
-            width:88%;
-            height:7%;
+            border-radius:50%;
 
-            z-index:99999999;
+            background:#1f4f91;
 
-            cursor:pointer;
+            color:white;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            font-size:11px;
+            font-weight:bold;
           ">
 
-            <div style="
-              position:absolute;
+          ↗
 
-              right:4%;
-              bottom:8%;
+          </div>
 
-              width:20px;
-              height:20px;
+      </a>
 
-              border-radius:50%;
+    </div>
 
-              background:#1f4f91;
+  `;
 
-              color:white;
+}else{
 
-              display:flex;
-              align-items:center;
-              justify-content:center;
-
-              font-size:11px;
-              font-weight:bold;
-            ">
-
-            ↗
-
-            </div>
-
-        </div>
-
-      </div>
-
-    `;
-
-  }else{
-
-    page.innerHTML = `
-      <img src="${i}.jpg?v=10">
-    `;
-
-  }
-
-  book.appendChild(page);
+  page.innerHTML = `
+    <img src="${i}.jpg?v=10">
+  `;
 
 }
-
-const pageFlip =
-new St.PageFlip(
-
-  document.getElementById("book"),
-
-  {
-
-    width:360,
-    height:640,
-
-    size:"stretch",
-
-    minWidth:300,
-    maxWidth:420,
-
-    minHeight:500,
-    maxHeight:750,
-
-    showCover:false,
-
-    usePortrait:true,
-
-    mobileScrollSupport:true
-
-  }
-
-);
 
 pageFlip.loadFromHTML(
   document.querySelectorAll(".page")
