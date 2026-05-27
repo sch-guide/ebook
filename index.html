@@ -175,6 +175,30 @@ body{
 
 }
 
+.linkBadge{
+
+  position:absolute;
+
+  right:2%;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  padding:5px 10px;
+
+  border-radius:14px;
+
+  background:rgba(31,79,145,0.92);
+
+  color:white;
+
+  font-size:11px;
+  font-weight:bold;
+
+  box-shadow:0 2px 8px rgba(0,0,0,0.25);
+
+}
+
 </style>
 </head>
 
@@ -250,78 +274,53 @@ for(let i=1; i<=38; i++){
 
   if(i === 24 || i === 26){
 
-  page.innerHTML = `
+    page.innerHTML = `
 
-    <div style="
-      position:relative;
-      width:100%;
-      height:100%;
-    ">
+      <div style="
+        position:relative;
+        width:100%;
+        height:100%;
+      ">
 
-      <img src="${i}.jpg">
+        <img src="${i}.jpg">
 
-      <div
-        onclick="event.stopPropagation(); window.open('https://www.schmc.ac.kr/cheonan', '_blank');"
+        <div
+          onclick="event.stopPropagation(); window.open('https://www.schmc.ac.kr/cheonan', '_blank');"
 
-        style="
-          position:absolute;
-
-          left:6%;
-
-          top:${i === 24 ? '82.8%' : '78.5%'};
-
-          width:88%;
-          height:7%;
-
-          z-index:99999999;
-
-          cursor:pointer;
-        ">
-
-          <div style="
+          style="
             position:absolute;
 
-            right:3%;
-            top:50%;
+            left:6%;
 
-            transform:translateY(-50%);
+            top:${i === 24 ? '82.8%' : '72.5%'};
 
-            width:34px;
-            height:34px;
+            width:88%;
+            height:7%;
 
-            border-radius:50%;
+            z-index:99999999;
 
-            background:#1f4f91;
-
-            color:white;
-
-            display:flex;
-            align-items:center;
-            justify-content:center;
-
-            font-size:18px;
-            font-weight:bold;
-
-            box-shadow:0 3px 10px rgba(0,0,0,0.3);
+            cursor:pointer;
           ">
 
-            ↗
+            <span class="linkBadge">
 
-          </div>
+              사이트 이동
+
+            </span>
+
+        </div>
 
       </div>
 
-    </div>
+    `;
 
-  `;
+  }else{
 
-}else{
+    page.innerHTML = `
+      <img src="${i}.jpg">
+    `;
 
-  page.innerHTML = `
-    <img src="${i}.jpg">
-  `;
-
-}
+  }
 
   book.appendChild(page);
 
