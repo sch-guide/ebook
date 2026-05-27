@@ -298,17 +298,11 @@ function startEbook(){
 
   bgm.volume = 0.45;
 
-  bgm.play()
-  .then(function(){
+  bgm.currentTime = 0;
 
-    bgmBtn.style.opacity = '1';
+  bgm.play();
 
-  })
-  .catch(function(error){
-
-    console.log(error);
-
-  });
+  bgmBtn.style.opacity = '1';
 
   document.getElementById(
     'startOverlay'
