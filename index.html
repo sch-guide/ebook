@@ -5,8 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>ebook</title>
 
@@ -181,8 +180,8 @@ body{
 
 <div id="book"></div>
 
-<audio id="bgm" loop preload="auto">
-  <source src="BGM.mp3" type="audio/mpeg">
+<audio id="bgm" loop autoplay preload="auto">
+  <source src="./BGM.mp3" type="audio/mpeg">
 </audio>
 
 <button
@@ -295,17 +294,35 @@ document.getElementById('bgm');
 const bgmBtn =
 document.getElementById('bgmBtn');
 
+window.addEventListener('load', function(){
+
+  bgm.volume = 0.45;
+
+  const playPromise = bgm.play();
+
+  if(playPromise !== undefined){
+
+    playPromise
+    .then(function(){
+
+      bgmBtn.style.opacity = '1';
+
+    })
+    .catch(function(error){
+
+      console.log("자동재생 차단:", error);
+
+    });
+
+  }
+
+});
+
 function startEbook(){
 
   bgm.volume = 0.45;
 
-  bgm.play().catch(function(error){
-
-    alert("BGM 재생 실패");
-
-    console.log(error);
-
-  });
+  bgm.play();
 
   document.getElementById(
     'startOverlay'
