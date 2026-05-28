@@ -44,138 +44,101 @@ body{
 }
 
 @media (max-width:768px){
-
   #book{
     width:95vw;
     height:85vh;
   }
-
 }
 
 .iconBtn{
-
   position:fixed;
   top:18px;
   z-index:999999999;
-
   width:44px;
   height:44px;
-
   border-radius:50%;
   border:2px solid rgba(255,255,255,0.9);
-
   background:rgba(20,60,120,0.28);
-
   color:white;
-
   font-size:23px;
   font-weight:500;
-
   backdrop-filter:blur(8px);
-
   box-shadow:0 4px 12px rgba(0,0,0,0.22);
-
 }
 
 #startOverlay{
-
   position:fixed;
   inset:0;
-
   z-index:1000000000;
-
   background:rgba(20,45,80,0.38);
-
   backdrop-filter:blur(3px);
-
   display:flex;
   align-items:center;
   justify-content:center;
-
 }
 
 .startBox{
-
   padding:14px 24px;
-
   border-radius:28px;
-
   border:2px solid white;
-
   background:rgba(20,60,120,0.45);
-
   color:white;
-
   font-size:18px;
   font-weight:bold;
-
   cursor:pointer;
-
 }
 
 #thumbs{
-
   display:none;
-
   position:fixed;
   inset:0;
-
   z-index:999999998;
-
   background:rgba(45,58,85,0.96);
-
   overflow:auto;
-
   padding:80px 18px 30px;
-
   box-sizing:border-box;
-
 }
 
 #thumbTitle{
-
   position:fixed;
-
   top:22px;
   left:0;
-
   width:100%;
-
   text-align:center;
-
   color:white;
-
   font-size:22px;
   font-weight:bold;
-
 }
 
 #closeThumb{
-
   position:fixed;
-
   top:12px;
   left:18px;
-
   z-index:999999999;
-
   border:none;
   background:none;
-
   color:white;
-
   font-size:42px;
-
 }
 
 #thumbGrid{
-
   display:grid;
-
   grid-template-columns:repeat(3,1fr);
-
   gap:18px;
+}
 
+.linkBadge{
+  position:absolute;
+  right:2%;
+  top:50%;
+  transform:translateY(-50%);
+  padding:5px 10px;
+  border-radius:14px;
+  background:rgba(31,79,145,0.92);
+  color:white;
+  font-size:11px;
+  font-weight:bold;
+  box-shadow:0 2px 8px rgba(0,0,0,0.25);
 }
 
 </style>
@@ -185,56 +148,17 @@ body{
 
 <div id="book"></div>
 
-<button
-id="thumbBtn"
-onclick="toggleThumbs()"
-class="iconBtn"
-style="left:18px;">
-
-⊞
-
-</button>
-
-<button
-id="bgmBtn"
-onclick="toggleBgm()"
-class="iconBtn"
-style="right:18px; opacity:0.55;">
-
-♫
-
-</button>
+<button id="thumbBtn" onclick="toggleThumbs()" class="iconBtn" style="left:18px;">⊞</button>
+<button id="bgmBtn" onclick="toggleBgm()" class="iconBtn" style="right:18px; opacity:0.55;">♫</button>
 
 <div id="startOverlay">
-
-  <button
-  class="startBox"
-  onclick="startEbook()">
-
-    ▶ 전자책 시작
-
-  </button>
-
+  <button class="startBox" onclick="startEbook()">▶ 전자책 시작</button>
 </div>
 
 <div id="thumbs">
-
-<div id="thumbTitle">
-
-썸네일
-
-</div>
-
-<button
-onclick="toggleThumbs()"
-id="closeThumb">
-
-‹
-
-</button>
-
-<div id="thumbGrid"></div>
-
+  <div id="thumbTitle">썸네일</div>
+  <button onclick="toggleThumbs()" id="closeThumb">‹</button>
+  <div id="thumbGrid"></div>
 </div>
 
 <script>
@@ -242,42 +166,45 @@ id="closeThumb">
 let bgm = null;
 let bgmShouldPlay = false;
 
-const book =
-document.getElementById("book");
+const book = document.getElementById("book");
 
 const linkPages = {
 
   24: {
     url: "https://www.schmc.ac.kr/cheonan",
-    top: "82.8%"
+    top: "82.8%",
+    badge: true
   },
 
   26: {
     url: "https://www.schmc.ac.kr/cheonan",
-    top: "72.5%"
+    top: "72.5%",
+    badge: true
   },
 
   28: {
     url: "https://www.schmc.ac.kr/cheonan/contents.do?key=16186",
-    top: "8.5%"
+    top: "10.5%",
+    badge: false
   },
 
   33: {
     url: "https://www.schmc.ac.kr/cheonan/contents.do?key=818",
-    top: "8.5%"
+    top: "10.5%",
+    badge: false
   },
 
   35: {
     url: "https://www.schmc.ac.kr/cheonan/goFormAuth.do?key=2896",
-    top: "87%"
+    top: "88.5%",
+    badge: false
   }
 
 };
 
 for(let i=1; i<=38; i++){
 
-  const page =
-  document.createElement("div");
+  const page = document.createElement("div");
 
   page.className = "page";
 
@@ -285,13 +212,9 @@ for(let i=1; i<=38; i++){
 
     page.innerHTML = `
 
-      <div style="
-        position:relative;
-        width:100%;
-        height:100%;
-      ">
+      <div style="position:relative; width:100%; height:100%;">
 
-        <img src="${i}.jpg?v=30">
+        <img src="${i}.jpg?v=50">
 
         <a
           href="${linkPages[i].url}"
@@ -301,19 +224,20 @@ for(let i=1; i<=38; i++){
 
           style="
             position:absolute;
-
             left:6%;
             top:${linkPages[i].top};
-
             width:88%;
             height:7%;
-
             z-index:99999999;
-
             display:block;
-
             text-decoration:none;
           ">
+
+          ${
+            linkPages[i].badge
+            ? `<span class="linkBadge">사이트 이동</span>`
+            : ``
+          }
 
         </a>
 
@@ -323,9 +247,7 @@ for(let i=1; i<=38; i++){
 
   }else{
 
-    page.innerHTML = `
-      <img src="${i}.jpg?v=30">
-    `;
+    page.innerHTML = `<img src="${i}.jpg?v=50">`;
 
   }
 
@@ -333,121 +255,78 @@ for(let i=1; i<=38; i++){
 
 }
 
-const pageFlip =
-new St.PageFlip(
-
+const pageFlip = new St.PageFlip(
   document.getElementById("book"),
-
   {
-
     width:360,
     height:640,
-
     size:"stretch",
-
     minWidth:300,
     maxWidth:420,
-
     minHeight:500,
     maxHeight:750,
-
     showCover:false,
-
     usePortrait:true,
-
     mobileScrollSupport:true
-
   }
-
 );
 
-pageFlip.loadFromHTML(
-  document.querySelectorAll(".page")
-);
+pageFlip.loadFromHTML(document.querySelectorAll(".page"));
 
-const bgmBtn =
-document.getElementById('bgmBtn');
+const bgmBtn = document.getElementById('bgmBtn');
 
 function startEbook(){
 
   if(!bgm){
-
     bgm = new Audio('./BGM.mp3');
-
     bgm.loop = true;
-
     bgm.volume = 0.45;
-
   }
 
   bgmShouldPlay = true;
-
   bgm.play();
 
   bgmBtn.style.opacity = '1';
-
-  document.getElementById(
-    'startOverlay'
-  ).style.display = 'none';
+  document.getElementById('startOverlay').style.display = 'none';
 
 }
 
 function toggleBgm(){
 
   if(!bgm){
-
     bgm = new Audio('./BGM.mp3');
-
     bgm.loop = true;
-
     bgm.volume = 0.45;
-
   }
 
   if(bgm.paused){
-
     bgmShouldPlay = true;
-
     bgm.play();
-
     bgmBtn.style.opacity = '1';
-
   }else{
-
     bgmShouldPlay = false;
-
     bgm.pause();
-
     bgmBtn.style.opacity = '0.55';
-
   }
 
 }
 
 function toggleThumbs(){
 
-  const thumbs =
-  document.getElementById('thumbs');
+  const thumbs = document.getElementById('thumbs');
 
   thumbs.style.display =
-
-  thumbs.style.display === 'none'
-
-  ? 'block'
-  : 'none';
+  thumbs.style.display === 'none' ? 'block' : 'none';
 
 }
 
 window.addEventListener('pageshow', function(){
 
   if(bgmShouldPlay && bgm){
-
     bgm.play().catch(function(error){
       console.log("다시 재생 실패:", error);
     });
-
     bgmBtn.style.opacity = '1';
-
   }
 
 });
@@ -455,33 +334,27 @@ window.addEventListener('pageshow', function(){
 document.addEventListener('visibilitychange', function(){
 
   if(!document.hidden && bgmShouldPlay && bgm){
-
     bgm.play().catch(function(error){
       console.log("복귀 후 재생 실패:", error);
     });
-
     bgmBtn.style.opacity = '1';
-
   }
 
 });
 
-const thumbGrid =
-document.getElementById('thumbGrid');
+const thumbGrid = document.getElementById('thumbGrid');
 
 for(let i=1; i<=38; i++){
 
-  const item =
-  document.createElement('div');
+  const item = document.createElement('div');
 
   item.style.textAlign = 'center';
-
   item.style.color = 'white';
 
   item.innerHTML = `
 
     <img
-    src="${i}.jpg?v=30"
+    src="${i}.jpg?v=50"
 
     style="
       width:100%;
@@ -489,18 +362,13 @@ for(let i=1; i<=38; i++){
       box-shadow:0 4px 10px rgba(0,0,0,0.25);
     ">
 
-    <div style="margin-top:7px;">
-      ${i}
-    </div>
+    <div style="margin-top:7px;">${i}</div>
 
   `;
 
   item.onclick = function(){
-
     pageFlip.flip(i - 1);
-
     toggleThumbs();
-
   };
 
   thumbGrid.appendChild(item);
