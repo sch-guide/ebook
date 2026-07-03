@@ -2,7 +2,6 @@
 <html lang="ko">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -15,7 +14,6 @@
 <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
 
 <style>
-
 body{
   margin:0;
   background:#f0f0f0;
@@ -141,6 +139,51 @@ body{
   box-shadow:0 2px 8px rgba(0,0,0,0.25);
 }
 
+/* 영상 팝업 */
+#videoPopup{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:1000000001;
+  background:rgba(0,0,0,0.82);
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  box-sizing:border-box;
+}
+
+.videoBox{
+  width:95%;
+  max-width:720px;
+  background:white;
+  border-radius:18px;
+  padding:14px;
+  box-sizing:border-box;
+}
+
+.videoTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+  font-weight:bold;
+}
+
+.videoClose{
+  border:none;
+  border-radius:10px;
+  padding:8px 12px;
+  background:#0b3b78;
+  color:white;
+  font-weight:bold;
+}
+
+#guideVideo{
+  width:100%;
+  max-height:75vh;
+  border-radius:12px;
+  background:black;
+}
 </style>
 </head>
 
@@ -161,131 +204,175 @@ body{
   <div id="thumbGrid"></div>
 </div>
 
-<script>
+<div id="videoPopup">
+  <div class="videoBox">
+    <div class="videoTop">
+      <span>간호·간병통합서비스 안내 영상</span>
+      <button class="videoClose" onclick="closeVideo()">닫기</button>
+    </div>
+    <video id="guideVideo" controls playsinline>
+      <source src="nursing_service.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
 
+<script>
 let bgm = null;
 let bgmShouldPlay = false;
 
 const book = document.getElementById("book");
 
-// 페이지 번호 → 실제 파일명 매핑 (이름 바뀐 페이지만 넣으면, 나머지는 자동으로 숫자.jpg 사용)
-const pageFiles = {
-  1: "1_병원생활안내.jpg",
-  10: "10.png",
-  12: "12_간호간병안내.jpg",
-  14: "14_병문안_상주보호자안내.jpg",
-  16: "16_환자안전주의사항.jpg",
-  21: "21_간병사신청.jpg",
-  22: "22_퇴원안내.jpg",
-  23: "23_회송안내.jpg",
-  24: "24_수납안내.jpg",
-  25: "25_진료비안내.jpg",
-  26: "26_제증명발급안내.jpg",
-  28: "28_WIFI.jpg",
-  29: "29_편의시설안내.jpg",
-  33: "33_주차안내.jpg",
-  34: "34_연락처안내.jpg",
-  35: "35_환자권리안내.jpg"
-};
-
-function getFileName(i){
-  return pageFiles[i] ? pageFiles[i] : `${i}.jpg`;
-}
+const fileNames = [
+  "1_병원생활안내.jpg",
+  "2.jpg",
+  "3.jpg",
+  "4.jpg",
+  "5.jpg",
+  "6.jpg",
+  "7.jpg",
+  "8.jpg",
+  "9.jpg",
+  "10.png",
+  "11.jpg",
+  "12_간호간병안내.jpg",
+  "13.jpg",
+  "14_방문안_상주보호자안내.jpg",
+  "15.jpg",
+  "16_환자안전주의사항.jpg",
+  "17.jpg",
+  "18.jpg",
+  "19.jpg",
+  "20.jpg",
+  "21_간병사신청.jpg",
+  "22_퇴원안내.jpg",
+  "23_회송안내.jpg",
+  "24_수납안내.jpg",
+  "25_진료비안내.jpg",
+  "26_제증명발급안내.jpg",
+  "27.jpg",
+  "28_WIFI.jpg",
+  "29_편의시설안내.jpg",
+  "30.jpg",
+  "31.jpg",
+  "32.jpg",
+  "33_주차안내.jpg",
+  "34_연락처안내.jpg",
+  "35_환자권리안내.jpg",
+  "36.jpg",
+  "37.jpg",
+  "38.jpg",
+  "39.jpg"
+];
 
 const linkPages = {
-
   12: {
-    url: "https://youtu.be/InEHXauVUeA",
-    top: "87.5%",
-    height: "6%",
-    badge: false
+    type: "video",
+    top: "89%",
+    height: "6%"
   },
 
   24: {
+    type: "link",
     url: "https://www.schmc.ac.kr/cheonan",
     top: "82.8%",
+    height: "7%",
     badge: true
   },
 
   26: {
+    type: "link",
     url: "https://www.schmc.ac.kr/cheonan",
     top: "72.5%",
+    height: "7%",
     badge: true
   },
 
   28: {
-  url: "https://www.schmc.ac.kr/cheonan/contents.do?key=16186",
-  top: "13%",
-  badge: false
-},
+    type: "link",
+    url: "https://www.schmc.ac.kr/cheonan/contents.do?key=16186",
+    top: "13%",
+    height: "7%",
+    badge: false
+  },
 
-33: {
-  url: "https://www.schmc.ac.kr/cheonan/contents.do?key=818",
-  top: "13%",
-  badge: false
-},
+  33: {
+    type: "link",
+    url: "https://www.schmc.ac.kr/cheonan/contents.do?key=818",
+    top: "13%",
+    height: "7%",
+    badge: false
+  },
 
-35: {
-  url: "https://www.schmc.ac.kr/cheonan/goFormAuth.do?key=2896",
-  top: "87.3%",
-  badge: false
-}
-
+  35: {
+    type: "link",
+    url: "https://www.schmc.ac.kr/cheonan/goFormAuth.do?key=2896",
+    top: "87.3%",
+    height: "7%",
+    badge: false
+  }
 };
 
-for(let i=1; i<=39; i++){
-
+for(let i=1; i<=fileNames.length; i++){
   const page = document.createElement("div");
-
   page.className = "page";
 
-  const fileName = getFileName(i);
+  const fileName = fileNames[i - 1];
 
   if(linkPages[i]){
+    const info = linkPages[i];
 
-    page.innerHTML = `
-
-      <div style="position:relative; width:100%; height:100%;">
-
-        <img src="${fileName}?v=51">
-
-        
-          href="${linkPages[i].url}"
-          target="_blank"
-
-          onclick="event.stopPropagation();"
-
-          style="
-            position:absolute;
-            left:6%;
-            top:${linkPages[i].top};
-            width:88%;
-            height:${linkPages[i].height || "7%"};
-            z-index:99999999;
-            display:block;
-            text-decoration:none;
-          ">
-
-          ${
-            linkPages[i].badge
-            ? `<span class="linkBadge">사이트 이동</span>`
-            : ``
-          }
-
-        </a>
-
-      </div>
-
-    `;
-
-  }else{
-
-    page.innerHTML = `<img src="${fileName}?v=51">`;
-
+    if(info.type === "video"){
+      page.innerHTML = `
+        <div style="position:relative; width:100%; height:100%;">
+          <img src="${fileName}?v=60">
+          <button
+            onclick="event.stopPropagation(); openVideo();"
+            style="
+              position:absolute;
+              left:8%;
+              top:${info.top};
+              width:84%;
+              height:${info.height};
+              z-index:99999999;
+              border:none;
+              background:transparent;
+              cursor:pointer;
+            ">
+          </button>
+        </div>
+      `;
+    } else {
+      page.innerHTML = `
+        <div style="position:relative; width:100%; height:100%;">
+          <img src="${fileName}?v=60">
+          <a
+            href="${info.url}"
+            target="_blank"
+            onclick="event.stopPropagation();"
+            style="
+              position:absolute;
+              left:6%;
+              top:${info.top};
+              width:88%;
+              height:${info.height};
+              z-index:99999999;
+              display:block;
+              text-decoration:none;
+            ">
+            ${
+              info.badge
+              ? `<span class="linkBadge">사이트 이동</span>`
+              : ``
+            }
+          </a>
+        </div>
+      `;
+    }
+  } else {
+    page.innerHTML = `<img src="${fileName}?v=60">`;
   }
 
   book.appendChild(page);
-
 }
 
 const pageFlip = new St.PageFlip(
@@ -309,7 +396,6 @@ pageFlip.loadFromHTML(document.querySelectorAll(".page"));
 const bgmBtn = document.getElementById('bgmBtn');
 
 function startEbook(){
-
   if(!bgm){
     bgm = new Audio('./BGM.mp3');
     bgm.loop = true;
@@ -321,11 +407,9 @@ function startEbook(){
 
   bgmBtn.style.opacity = '1';
   document.getElementById('startOverlay').style.display = 'none';
-
 }
 
 function toggleBgm(){
-
   if(!bgm){
     bgm = new Audio('./BGM.mp3');
     bgm.loop = true;
@@ -341,64 +425,69 @@ function toggleBgm(){
     bgm.pause();
     bgmBtn.style.opacity = '0.55';
   }
+}
 
+function openVideo(){
+  const videoPopup = document.getElementById("videoPopup");
+  const video = document.getElementById("guideVideo");
+
+  videoPopup.style.display = "flex";
+  video.currentTime = 0;
+  video.play().catch(()=>{});
+}
+
+function closeVideo(){
+  const videoPopup = document.getElementById("videoPopup");
+  const video = document.getElementById("guideVideo");
+
+  video.pause();
+  video.currentTime = 0;
+  videoPopup.style.display = "none";
 }
 
 function toggleThumbs(){
-
   const thumbs = document.getElementById('thumbs');
 
   thumbs.style.display =
   thumbs.style.display === 'none' ? 'block' : 'none';
-
 }
 
 window.addEventListener('pageshow', function(){
-
   if(bgmShouldPlay && bgm){
     bgm.play().catch(function(error){
       console.log("다시 재생 실패:", error);
     });
     bgmBtn.style.opacity = '1';
   }
-
 });
 
 document.addEventListener('visibilitychange', function(){
-
   if(!document.hidden && bgmShouldPlay && bgm){
     bgm.play().catch(function(error){
       console.log("복귀 후 재생 실패:", error);
     });
     bgmBtn.style.opacity = '1';
   }
-
 });
 
 const thumbGrid = document.getElementById('thumbGrid');
 
-for(let i=1; i<=39; i++){
-
+for(let i=1; i<=fileNames.length; i++){
   const item = document.createElement('div');
+  const fileName = fileNames[i - 1];
 
   item.style.textAlign = 'center';
   item.style.color = 'white';
 
-  const fileName = getFileName(i);
-
   item.innerHTML = `
-
     <img
-    src="${fileName}?v=51"
-
+    src="${fileName}?v=60"
     style="
       width:100%;
       border-radius:8px;
       box-shadow:0 4px 10px rgba(0,0,0,0.25);
     ">
-
     <div style="margin-top:7px;">${i}</div>
-
   `;
 
   item.onclick = function(){
@@ -407,9 +496,7 @@ for(let i=1; i<=39; i++){
   };
 
   thumbGrid.appendChild(item);
-
 }
-
 </script>
 
 </body>
