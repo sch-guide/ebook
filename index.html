@@ -168,30 +168,52 @@ let bgmShouldPlay = false;
 
 const book = document.getElementById("book");
 
-// 페이지 번호 → 실제 파일명 매핑 (이름 바뀐 페이지만 넣으면, 나머지는 자동으로 숫자.jpg 사용)
+// 페이지 번호 → 실제 파일명 매핑 (39개 전부 실제 저장소 파일명과 1:1로 명시)
 const pageFiles = {
   1: "1_병원생활안내.jpg",
+  2: "2.jpg",
+  3: "3.jpg",
+  4: "4.jpg",
+  5: "5.jpg",
+  6: "6.jpg",
+  7: "7.jpg",
+  8: "8.jpg",
+  9: "9.jpg",
   10: "10.png",
+  11: "11.jpg",
   12: "12_간호간병안내.jpg",
+  13: "13.jpg",
   14: "14_병문안_상주보호자안내.jpg",
+  15: "15.jpg",
   16: "16_환자안전주의사항.jpg",
+  17: "17.jpg",
+  18: "18.jpg",
+  19: "19.jpg",
+  20: "20.jpg",
   21: "21_간병사신청.jpg",
   22: "22_퇴원안내.jpg",
   23: "23_회송안내.jpg",
   24: "24_수납안내.jpg",
   25: "25_진료비안내.jpg",
   26: "26_제증명발급안내.jpg",
+  27: "27.jpg",
   28: "28_WIFI.jpg",
   29: "29_편의시설안내.jpg",
+  30: "30.jpg",
+  31: "31.jpg",
+  32: "32.jpg",
   33: "33_주차안내.jpg",
   34: "34_연락처안내.jpg",
-  35: "35_환자권리안내.jpg"
+  35: "35_환자권리안내.jpg",
+  36: "36.jpg",
+  37: "37.jpg",
+  38: "38.jpg",
+  39: "39.jpg"
 };
 
-// 이미지는 "이미지" 폴더 안에 있으므로 경로 앞에 폴더명을 붙여줌
+// 이미지는 "images" 폴더 안에 있으므로 경로 앞에 폴더명을 붙여줌
 function getFileName(i){
-  const name = pageFiles[i] ? pageFiles[i] : `${i}.jpg`;
-  return "images/" + name;
+  return "images/" + pageFiles[i];
 }
 
 const linkPages = {
