@@ -216,6 +216,11 @@ function getFileName(i){
   return "images/" + pageFiles[i];
 }
 
+// 썸네일에 표시할 이름 (확장자 제거한 파일명)
+function getDisplayName(i){
+  return pageFiles[i].replace(/\.[^/.]+$/, "");
+}
+
 const linkPages = {
 
   12: {
@@ -421,7 +426,7 @@ for(let i=1; i<=39; i++){
       box-shadow:0 4px 10px rgba(0,0,0,0.25);
     ">
 
-    <div style="margin-top:7px;">${i}</div>
+    <div style="margin-top:7px; font-size:12px; padding:0 4px; word-break:break-all;">${getDisplayName(i)}</div>
 
   `;
 
