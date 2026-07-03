@@ -191,7 +191,7 @@ const pageFiles = {
 // 이미지는 "이미지" 폴더 안에 있으므로 경로 앞에 폴더명을 붙여줌
 function getFileName(i){
   const name = pageFiles[i] ? pageFiles[i] : `${i}.jpg`;
-  return "이미지/" + name;
+  return "images/" + name;
 }
 
 const linkPages = {
@@ -313,7 +313,7 @@ const bgmBtn = document.getElementById('bgmBtn');
 function startEbook(){
 
   if(!bgm){
-    bgm = new Audio('./배경음악.mp3');
+    bgm = new Audio('./BGM.mp3');
     bgm.loop = true;
     bgm.volume = 0.45;
   }
@@ -329,7 +329,7 @@ function startEbook(){
 function toggleBgm(){
 
   if(!bgm){
-    bgm = new Audio('./배경음악.mp3');
+    bgm = new Audio('./BGM.mp3');
     bgm.loop = true;
     bgm.volume = 0.45;
   }
