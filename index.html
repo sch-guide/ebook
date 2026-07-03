@@ -168,7 +168,38 @@ let bgmShouldPlay = false;
 
 const book = document.getElementById("book");
 
+// 페이지 번호 → 실제 파일명 매핑 (이름 바뀐 페이지만 넣으면, 나머지는 자동으로 숫자.jpg 사용)
+const pageFiles = {
+  1: "1_병원생활안내.jpg",
+  10: "10.png",
+  12: "12_간호간병안내.jpg",
+  14: "14_병문안_상주보호자안내.jpg",
+  16: "16_환자안전주의사항.jpg",
+  21: "21_간병사신청.jpg",
+  22: "22_퇴원안내.jpg",
+  23: "23_회송안내.jpg",
+  24: "24_수납안내.jpg",
+  25: "25_진료비안내.jpg",
+  26: "26_제증명발급안내.jpg",
+  28: "28_WIFI.jpg",
+  29: "29_편의시설안내.jpg",
+  33: "33_주차안내.jpg",
+  34: "34_연락처안내.jpg",
+  35: "35_환자권리안내.jpg"
+};
+
+function getFileName(i){
+  return pageFiles[i] ? pageFiles[i] : `${i}.jpg`;
+}
+
 const linkPages = {
+
+  12: {
+    url: "https://youtu.be/InEHXauVUeA",
+    top: "87.5%",
+    height: "6%",
+    badge: false
+  },
 
   24: {
     url: "https://www.schmc.ac.kr/cheonan",
@@ -202,11 +233,13 @@ const linkPages = {
 
 };
 
-for(let i=1; i<=38; i++){
+for(let i=1; i<=39; i++){
 
   const page = document.createElement("div");
 
   page.className = "page";
+
+  const fileName = getFileName(i);
 
   if(linkPages[i]){
 
@@ -214,9 +247,9 @@ for(let i=1; i<=38; i++){
 
       <div style="position:relative; width:100%; height:100%;">
 
-        <img src="${i}.jpg?v=50">
+        <img src="${fileName}?v=51">
 
-        <a
+        
           href="${linkPages[i].url}"
           target="_blank"
 
@@ -227,7 +260,7 @@ for(let i=1; i<=38; i++){
             left:6%;
             top:${linkPages[i].top};
             width:88%;
-            height:7%;
+            height:${linkPages[i].height || "7%"};
             z-index:99999999;
             display:block;
             text-decoration:none;
@@ -247,7 +280,7 @@ for(let i=1; i<=38; i++){
 
   }else{
 
-    page.innerHTML = `<img src="${i}.jpg?v=50">`;
+    page.innerHTML = `<img src="${fileName}?v=51">`;
 
   }
 
@@ -344,17 +377,19 @@ document.addEventListener('visibilitychange', function(){
 
 const thumbGrid = document.getElementById('thumbGrid');
 
-for(let i=1; i<=38; i++){
+for(let i=1; i<=39; i++){
 
   const item = document.createElement('div');
 
   item.style.textAlign = 'center';
   item.style.color = 'white';
 
+  const fileName = getFileName(i);
+
   item.innerHTML = `
 
     <img
-    src="${i}.jpg?v=50"
+    src="${fileName}?v=51"
 
     style="
       width:100%;
